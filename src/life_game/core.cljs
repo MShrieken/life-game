@@ -117,6 +117,11 @@
          (check-history @cells))
     (toggle-time-atom)))
 
+(defn untick []
+  (swap! ticks dec)
+  (swap! cells #(peek @cell-history))
+  (swap! cell-history pop))
+
 (defn time-on []
   (js/setTimeout (fn []
                    (tick)
@@ -198,6 +203,9 @@
    [:input {:type "button"
             :value "Tick"
             :on-click tick}]
+   [:input {:type "button"
+            :value "UnTick"
+            :on-click untick}]
    [:input {:type "button"
             :value "Update Size"
             :on-click generate-cells}]
